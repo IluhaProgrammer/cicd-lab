@@ -31,7 +31,7 @@ jobs:
                 SSH_KEY: ${{ secrets.SSH_KEY }}
               run: |
                 echo "$SSH_KEY" > /tmp/ci_deploy_key
-                chmod 600 /tmp/ci_deploy_key
+                chmod 755 /tmp/ci_deploy_key
             
             - name: Add host to known_hosts
               env:
@@ -40,7 +40,7 @@ jobs:
                 ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
 
             - name: Deploy to server
-              env:
+              env: 
                 HOST: ${{ secrets.PRODUCTION_HOST }}
               run: |
                 echo "Trying to connect to $HOST"
